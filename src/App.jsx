@@ -5,6 +5,7 @@ import './App.css'
 import SearchBar from './components/SearchBar'
 import { castawayLookup } from './util/castawayLookup'
 import GuessTable from './components/GuessTable'
+import { CastawayCatagories } from './util/settings'
 
 async function getRandomCastawayID() {
   const APIURL = `https://rpfuy7m019.execute-api.us-east-1.amazonaws.com/v1/GetRandomSurvivorID`;
@@ -36,16 +37,6 @@ async function guessCastaway(guessID, targetID) {
   }
 }
 
-const CastawayCatagories = [
-  "Castaway Name", //0
-  "Season Number", //1
-  "Age", //2
-  "Gender", //3
-  "Placement", //4
-  "Votes Cast Against", //5
-  "Hot Cold"
-]
-
 function App() {
   const tableHeaders = {}
   tableHeaders[CastawayCatagories[0]] = CastawayCatagories[0]
@@ -73,13 +64,13 @@ function App() {
     }
     guessCastaway(castawayLookup[currentSurvivorText], currentCastawayID).then(result => {
       const nextGuess = {}
+      nextGuess[CastawayCatagories[6]] = [result.hotColdIndicator.seasonnumber, result.hotColdIndicator.age, result.hotColdIndicator.gender, result.hotColdIndicator.placement, result.hotColdIndicator.votesAgainst]
       nextGuess[CastawayCatagories[0]] = result.guessInfo.fullname
       nextGuess[CastawayCatagories[1]] = result.guessInfo.seasonnumber
       nextGuess[CastawayCatagories[2]] = result.guessInfo.age
       nextGuess[CastawayCatagories[3]] = result.guessInfo.gender
       nextGuess[CastawayCatagories[4]] = result.guessInfo.placement
       nextGuess[CastawayCatagories[5]] = result.guessInfo.votescastagainst
-      nextGuess[CastawayCatagories[6]] = [result.hotColdIndicator.seasonnumber, result.hotColdIndicator.age, result.hotColdIndicator.gender, result.hotColdIndicator.placement, result.hotColdIndicator.votesAgainst]
       setGuessHistory((previousGuesses) => {return [...previousGuesses, nextGuess]})
     })
   }
