@@ -68,7 +68,7 @@ function App() {
   getRandomCastawayID().then(result => {setCurrentCastawayID(result.id)})
  }
   function handleSearchSurvivor(currentSurvivorText){
-    if (!currentSurvivorText in castawayLookup) {
+    if (!(currentSurvivorText in castawayLookup)) {
       console.log("error: need valid castaway name")
     }
     guessCastaway(castawayLookup[currentSurvivorText], currentCastawayID).then(result => {

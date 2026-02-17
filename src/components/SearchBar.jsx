@@ -8,6 +8,11 @@ export default function SearchBar({searchSurvivor, survivorList, children}) {
         filteredSuggestions = filteredSuggestions.slice(0, 10)
     }
 
+    function handleSearch() {
+        searchSurvivor(currentSurvivorText)
+        setCurrentSurvivorText("")
+    }
+
     function handleText(event) {
         setCurrentSurvivorText(event.target.value);
         setShowSuggestions(event.target.value.length > 0);
@@ -25,7 +30,7 @@ export default function SearchBar({searchSurvivor, survivorList, children}) {
                 <input class="w-xl flex-initial border focus:bg-gray-100 border-gray-600 p-4 text-left" 
                 type="text" placeholder="Guess a Survivor Player"
                 onChange={handleText} value={currentSurvivorText}></input>
-                <button onClick={() => searchSurvivor(currentSurvivorText)}>Enter</button>
+                <button onClick={() => handleSearch(currentSurvivorText)}>Enter</button>
             </div>
             {(showSuggestions) && (
             <ul class="p-1 justify-center inline-block w-2xl bg-white border border-gray-100">
