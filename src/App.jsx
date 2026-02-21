@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { use, useEffect, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
@@ -6,9 +6,10 @@ import SearchBar from './components/SearchBar'
 import { castawayLookup } from './util/castawayLookup'
 import GuessTable from './components/GuessTable'
 import { CastawayCatagories } from './util/settings'
+import RadioButtonGroup from './components/RadioButtonGroup'
+import Cookies from 'js-cookie'
 
-async function getRandomCastawayID() {
-  const APIURL = `https://rpfuy7m019.execute-api.us-east-1.amazonaws.com/v1/GetRandomSurvivorID`;
+async function apiCall(APIURL) {
   try {
     const response = await fetch(APIURL);
     if (!response.ok) {
@@ -22,19 +23,29 @@ async function getRandomCastawayID() {
   }
 }
 
-async function guessCastaway(guessID, targetID) {
-  const APIURL = `https://rpfuy7m019.execute-api.us-east-1.amazonaws.com/v1/CompareSurvivorIDs?target=${targetID}&guess=${guessID}`;
-  try {
-    const response = await fetch(APIURL);
-    if (!response.ok) {
-      throw new Error(`Response status: ${response.status}`);
-    }
+function getRandomCastawayID() {
+  const APIURL = `https://rpfuy7m019.execute-api.us-east-1.amazonaws.com/v1/GetRandomSurvivorID`;
+  return apiCall(APIURL)
+}
 
-    const result = await response.json();
-    return result;
-  } catch (error) {
-    console.error(error.message);
+async function guessCastaway(guessID, targetID, gameMode) {
+  if (gameMode === "HighLow") {
+    return guessCastawayHighLow(guessID, targetID)
   }
+  else if (gameMode === "HotCold") {
+    return guessCastawayHotCold(guessID, targetID)
+  }
+}
+
+function guessCastawayHighLow(guessID, targetID) {
+  console.log('called')
+  const APIURL = `https://rpfuy7m019.execute-api.us-east-1.amazonaws.com/v1/CompareSurvivorIDsHighLow?target=${targetID}&guess=${guessID}`;
+  return apiCall(APIURL)
+}
+
+function guessCastawayHotCold(guessID, targetID) {
+  const APIURL = `https://rpfuy7m019.execute-api.us-east-1.amazonaws.com/v1/CompareSurvivorIDsWarmCold?target=${targetID}&guess=${guessID}`;
+  return apiCall(APIURL)
 }
 
 function App() {
@@ -50,19 +61,25 @@ function App() {
 
   const [guessHistory, setGuessHistory] = useState([tableHeaders]);
   const [currentCastawayID, setCurrentCastawayID] = useState();
+  const [guessCount, setGuessCount] = useState(1);
+  const [gameMode, setGameMode] = useState(() => {return Cookies.get("gameMode") || "HighLow"});
 
   useEffect(() => {
     getNextCastaway()
   }, []);
 
   function getNextCastaway() {
-  getRandomCastawayID().then(result => {setCurrentCastawayID(result.id)})
+  getRandomCastawayID().then(result => {setCurrentCastawayID(result.id)});
  }
+
+ function changeGameMode(name) {
+  setGameMode(name);
+  Cookies.set("gameMode", name, { expires: 1 })
+ }
+
   function handleSearchSurvivor(currentSurvivorText){
-    if (!(currentSurvivorText in castawayLookup)) {
-      console.log("error: need valid castaway name")
-    }
-    guessCastaway(castawayLookup[currentSurvivorText], currentCastawayID).then(result => {
+    setGuessCount(previous => previous + 1)
+    guessCastaway(castawayLookup[currentSurvivorText], currentCastawayID, gameMode).then(result => {
       const nextGuess = {}
       nextGuess[CastawayCatagories[6]] = [result.hotColdIndicator.seasonnumber, result.hotColdIndicator.age, result.hotColdIndicator.gender, result.hotColdIndicator.placement, result.hotColdIndicator.votesAgainst]
       nextGuess[CastawayCatagories[0]] = result.guessInfo.fullname
@@ -72,7 +89,7 @@ function App() {
       nextGuess[CastawayCatagories[4]] = result.guessInfo.placement
       nextGuess[CastawayCatagories[5]] = result.guessInfo.votescastagainst
       setGuessHistory((previousGuesses) => {return [...previousGuesses, nextGuess]})
-    })
+    });
   }
 
   return (
@@ -82,8 +99,17 @@ function App() {
             Survivor Guesser
           </h1>
         </div>
-        <SearchBar survivorList={Object.keys(castawayLookup)} searchSurvivor={handleSearchSurvivor} />
+        <RadioButtonGroup currentGameMode={gameMode} handleRadioButtonClick={changeGameMode} />
+        <SearchBar disabled={guessCount !== guessHistory.length} survivorList={Object.keys(castawayLookup)} searchSurvivor={handleSearchSurvivor} />
         <GuessTable guesses={guessHistory}/>
+
+        {guessCount !== guessHistory.length ? <div class="fixed z-10 inset-0 bg-black opacity-75 flex items-center justify-center h-full">
+          <svg class="mr-3 size-10 animate-spin" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="100" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+          </svg>
+        </div> : <></>}
+        
     </div>
     
   )

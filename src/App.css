@@ -1,5 +1,18 @@
 @import "tailwindcss";
 
+@theme {
+  --animate-reveal: reveal 0.5s ease-in-out;
+
+  @keyframes reveal {
+    0% {
+      transform: rotateX(90deg);
+    }
+    100% {
+      transform: rotateX(0deg);
+    }
+  }
+}
+
 #root {
   max-width: 1280px;
   margin: 0 auto;

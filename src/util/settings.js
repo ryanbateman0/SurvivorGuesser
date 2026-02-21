@@ -11,6 +11,7 @@ export const CastawayCatagories = [
 export const colorLookup = {
     ["H"]: "bg-red-200",
     ["L"]: "bg-blue-200",
+    ["W"]: "bg-orange-200",
     ["O"]: "bg-gray-100",
     ["X"]: "bg-green-500",
     ["N"]: "bg-white"
@@ -19,6 +20,7 @@ export const colorLookup = {
 export const arrowLookup = {
     ["H"]: " v",
     ["L"]: " ^",
+    ["W"]: " *",
     ["O"]: "",
     ["X"]: "",
     ["N"]: ""
