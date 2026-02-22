@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { castawayLookup } from "../util/castawayLookup";
 
-export default function SearchBar({searchSurvivor, survivorList, children}) {
+export default function SearchBar({disableSearch, searchSurvivor, survivorList, children}) {
     const [currentSurvivorText, setCurrentSurvivorText] = useState('');
     const [showSuggestions, setShowSuggestions] = useState(false);
     const [selectedIndex, setSelectedIndex] = useState(-1);
@@ -82,7 +82,7 @@ export default function SearchBar({searchSurvivor, survivorList, children}) {
         <div class="flex-col relative z-10 inset-x-0 top-16 h-16">
             <div class="flex justify-center">
                 <input class="w-2xl border  focus:border-gray-800 border-gray-600 p-4 text-left" 
-                type="text" placeholder="Guess a Survivor Player"
+                type="text" placeholder="Guess a Survivor Player" disabled={disableSearch}
                 onChange={handleText} value={currentSurvivorText} onKeyDown={handleKeyDown}  onFocus={handleFocus} onBlur={handleBlur} ></input>
                 <button onClick={() => handleSearch()}>Enter</button>
             </div>

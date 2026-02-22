@@ -1,5 +1,6 @@
 @import "tailwindcss";
 
+
 @theme {
   --animate-reveal: reveal 0.5s ease-in-out;
 
@@ -9,6 +10,24 @@
     }
     100% {
       transform: rotateX(0deg);
+    }
+  }
+}
+
+@theme {
+  --animate-pop-out: pop-out 2s linear;
+
+  @keyframes pop-out {
+    0% {
+      transform: scale(0);
+      opacity: 1
+    }
+    80% {
+      opacity: 1
+    }
+    100% {
+      transform: scale(1);
+      opacity: 0
     }
   }
 }

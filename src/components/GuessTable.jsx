@@ -1,16 +1,15 @@
 import { useEffect, useState } from "react";
-import { CastawayCatagories, colorLookup, arrowLookup } from "../util/settings"
+import { CastawayCatagories, colorLookup, arrowLookup, revealAnimationTimeInMilliseconds } from "../util/settings"
 
 export default function GuessTable( {guesses} ) {
     const [spinningRowIndex, setSpinningRowIndex] = useState(0);
     const [spinningColumnIndex, setSpinningColumnIndex] = useState(6);
-    const animationTime = 500;
 
     function spinCurrentRow() {
-        for (let i = 0; i < 7; i++) {
+        for (let i = 0; i < CastawayCatagories.length; i++) {
             setTimeout(() => {
                 setSpinningColumnIndex(previous => previous + 1)
-            }, animationTime * i);
+            }, revealAnimationTimeInMilliseconds * i);
         }
     }
 
@@ -18,7 +17,7 @@ export default function GuessTable( {guesses} ) {
     useEffect(() => {
         if (spinningRowIndex !== 0) {
             setSpinningColumnIndex(-1);
-            setTimeout(() => {setSpinningRowIndex(previous => previous + 1)}, animationTime * 7);
+            setTimeout(() => {setSpinningRowIndex(previous => previous + 1)}, revealAnimationTimeInMilliseconds * CastawayCatagories.length);
             spinCurrentRow();
         }
         else {
@@ -29,7 +28,7 @@ export default function GuessTable( {guesses} ) {
     return (
         <ol class="relative inset-x-0 top-24 h-16">
             {guesses.map((guess, index) => (
-                <li className="flex justify-center" key={guess[CastawayCatagories[0]]}>
+                <li className="flex justify-center" key={guess[CastawayCatagories[0] + CastawayCatagories[1]]}>
                     <div className={`w-64 h-13 m-1 flex items-center justify-center bg-white text-black border ${index === spinningRowIndex && spinningColumnIndex === 0 ? "animate-reveal" : ""} ${index < spinningRowIndex || spinningColumnIndex >= 0 ? "" : "opacity-0"}`}>{guess[CastawayCatagories[0]]}</div>
                     <div className={`w-30 m-1 flex items-center justify-center text-black border ${colorLookup[guess[CastawayCatagories[6]][0]]} ${index === spinningRowIndex && spinningColumnIndex === 1 ? "animate-reveal" : ""} ${index < spinningRowIndex || spinningColumnIndex >= 1 ? "" : "opacity-0"}`}>{guess[CastawayCatagories[1]]}{arrowLookup[guess[CastawayCatagories[6]][0]]}</div>
                     <div className={`w-30 m-1 flex items-center justify-center text-black border ${colorLookup[guess[CastawayCatagories[6]][1]]} ${index === spinningRowIndex && spinningColumnIndex === 2 ? "animate-reveal" : ""} ${index < spinningRowIndex || spinningColumnIndex >= 2 ? "" : "opacity-0"}`}>{guess[CastawayCatagories[2]]}{arrowLookup[guess[CastawayCatagories[6]][1]]}</div>
