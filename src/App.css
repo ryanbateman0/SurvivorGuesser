@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 :root{
-  --reveal-duration: 500ms;
-  --pop-out-duration: 2000ms;
+  --reveal-duration: 0.5s;
+  --pop-out-duration: 2s;
 }
 
 @theme {

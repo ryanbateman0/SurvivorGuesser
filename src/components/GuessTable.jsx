@@ -1,10 +1,16 @@
 import { useEffect, useState } from "react";
-import { CastawayCatagories, colorLookup, arrowLookup, revealAnimationTimeInMilliseconds } from "../util/settings"
+import { CastawayCatagories, colorLookup, arrowLookup, getRevealAnimationTimeInMilliseconds } from "../util/settings"
 
 export default function GuessTable( {guesses} ) {
     const [spinningRowIndex, setSpinningRowIndex] = useState(0);
     const [spinningColumnIndex, setSpinningColumnIndex] = useState(6);
+    const [revealAnimationTimeInMilliseconds, setRevealAnimationTime] = useState();
 
+    useEffect(() => {
+        setRevealAnimationTime(getRevealAnimationTimeInMilliseconds());
+    }, [])
+
+    
     function spinCurrentRow() {
         for (let i = 0; i < CastawayCatagories.length; i++) {
             setTimeout(() => {

@@ -5,7 +5,7 @@ import './App.css'
 import SearchBar from './components/SearchBar'
 import { castawayLookup } from './util/castawayLookup'
 import GuessTable from './components/GuessTable'
-import { CastawayCatagories, popOutAnimationTimeInMilliseconds, revealAnimationTimeInMilliseconds } from './util/settings'
+import { CastawayCatagories, getRevealAnimationTimeInMilliseconds, getPopOutAnimationTimeInMilliseconds } from './util/settings'
 import RadioButtonGroup from './components/RadioButtonGroup'
 import Cookies from 'js-cookie'
 import PopOutAnimation from './components/PopOutAnimation'
@@ -78,6 +78,14 @@ function App() {
   const [waitForAnimation, setWaitForAnimation] = useState(false);
   const [winner, setWinner] = useState(false);
   const [lastGuessName, setLastGuessName] = useState("");
+  const [revealAnimationTimeInMilliseconds, setRevealAnimationTime] = useState();
+  const [popOutAnimationTimeInMilliseconds, setPopOutAnimationTime] = useState();
+
+  useEffect(() => {
+    setPopOutAnimationTime(getPopOutAnimationTimeInMilliseconds());
+    setRevealAnimationTime(getRevealAnimationTimeInMilliseconds());
+  }, [])
+
 
   useEffect(() => {
     getNextCastaway()
