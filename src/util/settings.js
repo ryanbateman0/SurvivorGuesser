@@ -9,10 +9,10 @@ export const CastawayCatagories = [
 ]
 
 // const revealAnimationTimeString = getComputedStyle(document.documentElement).getPropertyValue("--animate-reveal").trim().split(" ")[1];
-export const revealAnimationTimeInMilliseconds = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--animate-reveal").trim().split(" ")[1].substring(0, getComputedStyle(document.documentElement).getPropertyValue("--animate-reveal").trim().split(" ")[1].length - 1))  * 1000;
+export const revealAnimationTimeInMilliseconds =  parseInt(getComputedStyle(document.documentElement).getPropertyValue("--reveal-duration"));
 
 // const popOutAnimationTimeString = getComputedStyle(document.documentElement).getPropertyValue("--animate-pop-out").trim().split(" ")[1];
-export const popOutAnimationTimeInMilliseconds = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--animate-pop-out").trim().split(" ")[1].substring(0, getComputedStyle(document.documentElement).getPropertyValue("--animate-pop-out").trim().split(" ")[1].length - 1))  * 1000;
+export const popOutAnimationTimeInMilliseconds = parseInt(getComputedStyle(document.documentElement).getPropertyValue("--pop-out-duration"));
 
 export const colorLookup = {
     ["H"]: "bg-red-200",

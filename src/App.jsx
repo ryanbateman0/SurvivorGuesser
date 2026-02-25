@@ -70,7 +70,6 @@ function App() {
   tableHeaders[CastawayCatagories[5]] = CastawayCatagories[5]
   tableHeaders[CastawayCatagories[6]] = ["N", "N", "N", "N", "N"]
   
-
   const [guessHistory, setGuessHistory] = useState([tableHeaders]);
   const [currentCastawayID, setCurrentCastawayID] = useState();
   const [guessCount, setGuessCount] = useState(0);

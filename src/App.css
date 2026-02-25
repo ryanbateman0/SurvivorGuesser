@@ -1,8 +1,12 @@
 @import "tailwindcss";
 
+:root{
+  --reveal-duration: 500ms;
+  --pop-out-duration: 2000ms;
+}
 
 @theme {
-  --animate-reveal: reveal 0.5s ease-in-out;
+  --animate-reveal: reveal var(--reveal-duration) ease-in-out;
 
   @keyframes reveal {
     0% {
@@ -15,7 +19,7 @@
 }
 
 @theme {
-  --animate-pop-out: pop-out 2s linear;
+  --animate-pop-out: pop-out var(--pop-out-duration) linear;
 
   @keyframes pop-out {
     0% {
