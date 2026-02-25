@@ -96,6 +96,7 @@ function App() {
  }
 
  function changeGameMode(name) {
+  console.log("called");
   setGameMode(name);
   Cookies.set("gameMode", name, { expires: 1 })
  }
@@ -163,7 +164,7 @@ function App() {
   }
 
   
-
+  console.log(winner)
   return (
     <>
     <div class="absolute inset-x-0 top-4 h-16">
