@@ -26,7 +26,7 @@ export default function WinScreen({castawayName, numberOfGuesses}) {
 
     return (
         <>
-            <div class = "absolute text-xl inset-x-30/32 inset-y-1/64 z-20 bg-white" onClick={handleClickX}>
+            <div class = "absolute cursor-default text-xl inset-x-30/32 inset-y-1/64 z-20 bg-white" onClick={handleClickX}>
                 {topRightSymbol}
             </div>
             <Confetti width={width} height={height} numberOfPieces={width / 5} style={{ zIndex: 20 }}/>

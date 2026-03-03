@@ -96,7 +96,6 @@ function App() {
  }
 
  function changeGameMode(name) {
-  console.log("called");
   setGameMode(name);
   Cookies.set("gameMode", name, { expires: 1 })
  }
@@ -136,7 +135,7 @@ function App() {
       setWaitForAnimation(true);
     setTimeout(() => {
       setFeedbackText(resultText);
-      setWaitForAnimation(false);
+      setWaitForAnimation(false); //comment this if adding pop animations back ins
     }, revealAnimationTimeInMilliseconds * CastawayCatagories.length);
 
     //Pop out animation timer.  Also need to uncomment in the return statement below.
@@ -167,8 +166,6 @@ function App() {
     });
   }
 
-  
-  console.log(winner)
   return (
     <>
     <div class="absolute inset-x-0 top-4 h-16">
@@ -177,7 +174,7 @@ function App() {
             Survivor Guesser
           </h1>
         </div>
-        <RadioButtonGroup currentGameMode={gameMode} handleRadioButtonClick={changeGameMode} />
+        <RadioButtonGroup currentGameMode={gameMode} handleRadioButtonClick={changeGameMode} winner={winner} />
         <SearchBar disableSearch={guessCount + 1 !== guessHistory.length || waitForAnimation || winner} survivorList={Object.keys(castawayLookup)} searchSurvivor={handleSearchSurvivor} />
         <GuessTable guesses={guessHistory}/>
         
