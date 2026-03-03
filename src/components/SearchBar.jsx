@@ -85,10 +85,10 @@ export default function SearchBar({disableSearch, searchSurvivor, survivorList, 
     return(
         <div class="flex-col relative z-10 inset-x-0 top-16 h-16">
             <div class="flex justify-center">
-                <input class="w-2xl border  focus:border-gray-800 border-gray-600 p-4 text-left" 
+                <input class="w-2xl border text-gray-300 placeholder-gray-400 focus:border-gray-800 border-gray-600 p-4 text-left" 
                 type="text" placeholder="Guess a Survivor Player" disabled={disableSearch}
                 onChange={handleText} value={currentSurvivorText} onKeyDown={handleKeyDown}  onFocus={handleFocus} onBlur={handleBlur} ></input>
-                <button onClick={() => handleSearch()}>Enter</button>
+                <button onClick={() => handleSearch()} disabled={disableSearch} >Enter</button>
             </div>
             {(showSuggestions) && (
             <ul class="rounded p-1 justify-center inline-block w-full md:w-188  bg-white">

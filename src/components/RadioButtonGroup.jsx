@@ -2,7 +2,7 @@
 export default function RadioButtonGroup({currentGameMode, handleRadioButtonClick, winner}){
 
     const buttonClass = `p-1 accent-purple-400`
-    const labelClass = `p-1`
+    const labelClass = `p-1 text-gray-300`
 
     return (
         <div className="flex justify-center p-4">
