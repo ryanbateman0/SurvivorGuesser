@@ -74,6 +74,10 @@ export default function SearchBar({disableSearch, searchSurvivor, survivorList, 
     }
 
     function handleMouseEnter(event, index) {
+        setSelectedIndex(index);
+    }
+
+    function handleMouseExit(event) {
         setSelectedIndex(-1);
     }
 
@@ -87,11 +91,11 @@ export default function SearchBar({disableSearch, searchSurvivor, survivorList, 
                 <button onClick={() => handleSearch()}>Enter</button>
             </div>
             {(showSuggestions) && (
-            <ul class="p-1 justify-center inline-block w-full md:w-3xl  bg-white border border-gray-100">
+            <ul class="rounded p-1 justify-center inline-block w-full md:w-188  bg-white">
                 {filteredSuggestions.map((filteredSuggestion, index) => (
                     <li key={filteredSuggestion} 
-                    class={`m-0.5 p-2 text-black border ${index !== selectedIndex ? "bg-white" : "bg-gray-300"} hover:bg-gray-300`} 
-                    onMouseDown={(event) => handleSuggestionClick(event, filteredSuggestion)} onMouseEnter={handleMouseEnter}>
+                    class={`cursor-default rounded m-0.5 p-2 text-black ${index !== selectedIndex ? "bg-white" : "bg-gray-300"}`} 
+                    onMouseDown={(event) => handleSuggestionClick(event, filteredSuggestion)} onMouseEnter={(event) => handleMouseEnter(event, index)} onMouseLeave={handleMouseExit}>
                         {filteredSuggestion}
                     </li>
                 ))}

@@ -1,7 +1,7 @@
 
 export default function RadioButtonGroup({currentGameMode, handleRadioButtonClick, winner}){
 
-    const buttonClass = `p-1`
+    const buttonClass = `p-1 accent-purple-400`
     const labelClass = `p-1`
 
     return (
