@@ -1,10 +1,6 @@
 import { useEffect, useState } from "react";
-<<<<<<< HEAD
-import { CastawayCatagories, colorLookup, arrowLookup, getRevealAnimationTimeInMilliseconds } from "../util/settings"
-=======
 import { CastawayCatagories, colorLookup, arrowLookup, revealAnimationTimeInMilliseconds } from "../util/settings"
 import { ColumnCategory } from "./ColumnCategory";
->>>>>>> d37eef4 (small text updates and took out pop out animations)
 
 export default function GuessTable( {guesses} ) {
     const [spinningRowIndex, setSpinningRowIndex] = useState(0);
