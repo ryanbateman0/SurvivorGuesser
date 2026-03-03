@@ -136,13 +136,17 @@ function App() {
       setWaitForAnimation(true);
     setTimeout(() => {
       setFeedbackText(resultText);
-    }, revealAnimationTimeInMilliseconds * CastawayCatagories.length);
-    setTimeout(() => {
-      setFeedbackText("")
-    }, (revealAnimationTimeInMilliseconds * CastawayCatagories.length) + popOutAnimationTimeInMilliseconds - 1);
-    setTimeout(() => {
       setWaitForAnimation(false);
-    }, (revealAnimationTimeInMilliseconds * CastawayCatagories.length) + popOutAnimationTimeInMilliseconds - 1);
+    }, revealAnimationTimeInMilliseconds * CastawayCatagories.length);
+
+    //Pop out animation timer.  Also need to uncomment in the return statement below.
+
+    // setTimeout(() => {
+    //   setFeedbackText("")
+    // }, (revealAnimationTimeInMilliseconds * CastawayCatagories.length) + popOutAnimationTimeInMilliseconds - 1);
+    // setTimeout(() => {
+    //   setWaitForAnimation(false);
+    // }, (revealAnimationTimeInMilliseconds * CastawayCatagories.length) + popOutAnimationTimeInMilliseconds - 1);
   }
  }
 
@@ -187,7 +191,7 @@ function App() {
         
     </div>
 
-    <PopOutAnimation popOutText={feedbackText}/>
+    {/* <PopOutAnimation popOutText={feedbackText}/> */}
 
     {winner ? 
     <WinScreen castawayName={lastGuessName} numberOfGuesses={guessCount}/>
