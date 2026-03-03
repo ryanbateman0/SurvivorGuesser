@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { CastawayCatagories, colorLookup, arrowLookup, revealAnimationTimeInMilliseconds } from "../util/settings"
+import { CastawayCatagories, getRevealAnimationTimeInMilliseconds } from "../util/settings"
 import { ColumnCategory } from "./ColumnCategory";
 
 export default function GuessTable( {guesses} ) {
